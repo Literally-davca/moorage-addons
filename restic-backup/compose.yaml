@@ -1,0 +1,7 @@
+services:
+  restic:
+    image: restic/restic:latest
+    restart: "no"
+    entrypoint: ["sleep", "infinity"]
+    volumes:
+      - /opt/stacks:/backup/stacks:ro

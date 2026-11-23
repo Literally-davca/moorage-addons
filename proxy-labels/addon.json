@@ -1,0 +1,12 @@
+{
+  "id": "proxy-labels",
+  "name": "Proxy & dashboard label detection",
+  "version": "1",
+  "kind": "builtin",
+  "category": "Integrations",
+  "description": "Automatically detect service web URLs from Traefik, Caddy and Homepage container labels.",
+  "resources": {
+    "ram": "+0 MB (negligible, < 100 KB per stack list)",
+    "cpu": "~0% (regex parse only when listing containers)"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "trivy-scanner",
+  "name": "Trivy CVE vulnerability scanner",
+  "version": "1",
+  "kind": "sidecar",
+  "category": "Security",
+  "description": "Optional sidecar container for scanning stack container images for known CVEs without bloating the Moorage binary.",
+  "resources": {
+    "ram": "+40 MB idle (server) / +150–400 MB during image scan",
+    "cpu": "~0% idle / 1–2 cores burst for 5–20s per image scan"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "official-templates",
+  "name": "Official template catalog (moorage-templates)",
+  "version": "1",
+  "kind": "builtin",
+  "category": "Templates",
+  "description": "Connects Literally-davca/moorage-templates as a remote template index with daily refresh.",
+  "resources": {
+    "ram": "+1–2 MB (in-memory during daily refresh; ~0 MB idle)",
+    "cpu": "~0% (1 HTTPS fetch every 24h)"
+  }
+}

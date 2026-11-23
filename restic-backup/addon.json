@@ -1,0 +1,12 @@
+{
+  "id": "restic-backup",
+  "name": "Restic volume backups",
+  "version": "1",
+  "kind": "sidecar",
+  "category": "Backups",
+  "description": "Optional scheduled Restic container for encrypted, deduplicated backups of stack volumes.",
+  "resources": {
+    "ram": "+0 MB between runs / +30–120 MB during backup job",
+    "cpu": "~0% idle / moderate burst during compression & encryption"
+  }
+}
