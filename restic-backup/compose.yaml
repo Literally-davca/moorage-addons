@@ -1,7 +1,37 @@
 services:
   restic:
     image: restic/restic:latest
-    restart: "no"
-    entrypoint: ["sleep", "infinity"]
+    restart: unless-stopped
+    # Zero-config: Moorage fills MOORAGE_STACKS_DIR, MOORAGE_BACKUPS_DIR, TZ and a random
+    # RESTIC_PASSWORD into add-ons/.env when the add-on is installed. Backups of the stacks
+    # folder run once a day into <Moorage data>/backups (or the restic-repo volume).
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -u
+        restic cat config >/dev/null 2>&1 || restic init || exit 1
+        while true; do
+          echo "$$(date -Iseconds) backup of /backup/stacks"
+          restic backup /backup/stacks --tag moorage --host "$${BACKUP_HOST}" || echo "backup failed"
+          restic forget --prune --tag moorage --keep-daily "$${KEEP_DAILY}" --keep-weekly "$${KEEP_WEEKLY}" --keep-monthly "$${KEEP_MONTHLY}" || echo "prune failed"
+          sleep "$${BACKUP_INTERVAL}"
+        done
+    environment:
+      RESTIC_REPOSITORY: ${RESTIC_REPOSITORY:-/backup/repo}
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD:?RESTIC_PASSWORD is missing in add-ons/.env}
+      TZ: ${TZ:-UTC}
+      BACKUP_HOST: ${RESTIC_BACKUP_HOST:-moorage}
+      BACKUP_INTERVAL: ${RESTIC_BACKUP_INTERVAL:-86400}
+      KEEP_DAILY: ${RESTIC_KEEP_DAILY:-7}
+      KEEP_WEEKLY: ${RESTIC_KEEP_WEEKLY:-4}
+      KEEP_MONTHLY: ${RESTIC_KEEP_MONTHLY:-6}
+      GOGC: "20"
     volumes:
-      - /opt/stacks:/backup/stacks:ro
+      - ${MOORAGE_STACKS_DIR:-/opt/stacks}:/backup/stacks:ro
+      - ${MOORAGE_BACKUPS_DIR:-restic-repo}:/backup/repo
+      - restic-cache:/root/.cache/restic
+    mem_limit: 256m
+
+volumes:
+  restic-repo:
+  restic-cache:

@@ -4,22 +4,11 @@ Optional external container add-on for scanning Docker images used by your Moora
 
 Keeping Trivy as an external sidecar container preserves Moorage's `< 100 MB` RAM core footprint and avoids bundling large vulnerability databases into Moorage.
 
-## Example Compose Sidecar
+## Zero-config
 
-```yaml
-services:
-  trivy:
-    image: aquasec/trivy:latest
-    command: ["server", "--listen", "0.0.0.0:4954"]
-    restart: unless-stopped
-    volumes:
-      - trivy-cache:/root/.cache/
-    ports:
-      - "127.0.0.1:4954:4954"
+Add it and it runs: Trivy listens on `127.0.0.1:4954` of the host, keeps its vulnerability database in the `trivy-cache` volume and uses the hub's time zone (`TZ`, filled in by Moorage). The `add-ons` stack updates automatically, so the scanner and its `:latest` image stay current.
 
-volumes:
-  trivy-cache:
-```
+Options in `add-ons/.env`: `TRIVY_PORT` (default `4954`) and `TRIVY_BIND` (default `127.0.0.1`; `0.0.0.0` shares the server with other machines).
 
 ## Resource Footprint (RAM & CPU)
 
