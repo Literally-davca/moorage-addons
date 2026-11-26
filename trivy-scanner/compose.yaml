@@ -3,10 +3,14 @@ services:
     image: aquasec/trivy:latest
     command: ["server", "--listen", "0.0.0.0:4954"]
     restart: unless-stopped
+    environment:
+      TZ: ${TZ:-UTC}
     volumes:
       - trivy-cache:/root/.cache/
     ports:
-      - "127.0.0.1:4954:4954"
+      # Reachable from this host only; set TRIVY_BIND=0.0.0.0 in add-ons/.env to share it.
+      - "${TRIVY_BIND:-127.0.0.1}:${TRIVY_PORT:-4954}:4954"
+    mem_limit: 512m
 
 volumes:
   trivy-cache:

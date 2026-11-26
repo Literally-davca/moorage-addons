@@ -1,7 +1,7 @@
 {
   "id": "trivy-scanner",
   "name": "Trivy CVE vulnerability scanner",
-  "version": "1",
+  "version": "2",
   "kind": "sidecar",
   "category": "Security",
   "description": "Optional sidecar container for scanning stack container images for known CVEs without bloating the Moorage binary.",

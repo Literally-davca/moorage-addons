@@ -44,12 +44,12 @@
     {
       "id": "restic-backup",
       "name": "Restic volume backups",
-      "version": "1",
+      "version": "2",
       "kind": "sidecar",
       "category": "Backups",
-      "description": "Optional scheduled Restic container for encrypted, deduplicated backups of stack volumes.",
+      "description": "Encrypted, deduplicated daily backups of the stacks folder into <data>/backups, ready right after adding (password and paths are filled in).",
       "resources": {
-        "ram": "+0 MB between runs / +30–120 MB during backup job",
+        "ram": "~1 MB between runs / +30–120 MB during a backup",
         "cpu": "~0% idle / moderate burst during compression & encryption"
       },
       "readme": "restic-backup/README.md",
@@ -58,7 +58,7 @@
     {
       "id": "trivy-scanner",
       "name": "Trivy CVE vulnerability scanner",
-      "version": "1",
+      "version": "2",
       "kind": "sidecar",
       "category": "Security",
       "description": "Optional sidecar container for scanning stack container images for known CVEs without bloating the Moorage binary.",
