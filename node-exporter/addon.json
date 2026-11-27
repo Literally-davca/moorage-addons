@@ -1,0 +1,12 @@
+{
+  "id": "node-exporter",
+  "name": "Prometheus node exporter",
+  "version": "1",
+  "kind": "sidecar",
+  "category": "Monitoring",
+  "description": "Host metrics (CPU, memory, disks, network) for Prometheus next to the prometheus-grafana add-on.",
+  "resources": {
+    "ram": "+10–20 MB",
+    "cpu": "< 1%"
+  }
+}

@@ -1,0 +1,11 @@
+sinks:
+  out:
+    type: http
+    inputs: [tidy]
+    uri: "${LOG_ENDPOINT}/insert/jsonline?_stream_fields=stack,service,container_name&_msg_field=message&_time_field=timestamp"
+    encoding:
+      codec: json
+    framing:
+      method: newline_delimited
+    healthcheck:
+      enabled: false

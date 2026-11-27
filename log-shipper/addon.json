@@ -1,0 +1,12 @@
+{
+  "id": "log-shipper",
+  "name": "Log shipper (Vector)",
+  "version": "1",
+  "kind": "sidecar",
+  "category": "Logging",
+  "description": "Ships container logs of this host to VictoriaLogs, Loki or any OTLP endpoint with Vector.",
+  "resources": {
+    "ram": "+30–60 MB",
+    "cpu": "~1% at 100 lines/s"
+  }
+}

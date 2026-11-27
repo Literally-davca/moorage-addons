@@ -1,0 +1,12 @@
+sinks:
+  out:
+    type: loki
+    inputs: [tidy]
+    endpoint: "${LOG_ENDPOINT}"
+    labels:
+      stack: "{{ stack }}"
+      service: "{{ service }}"
+    encoding:
+      codec: json
+    healthcheck:
+      enabled: false

@@ -1,0 +1,16 @@
+services:
+  vector:
+    image: timberio/vector:0.47.0-alpine
+    restart: unless-stopped
+    # the sources and one sink: victorialogs | loki | otlp
+    command: ["--config", "/etc/vector/source.yaml", "--config", "/etc/vector/sink-${LOG_SINK:-victorialogs}.yaml"]
+    environment:
+      # Where logs go, e.g. http://victorialogs:9428 , http://loki:3100 or http://collector:4318
+      LOG_ENDPOINT: ${LOG_ENDPOINT:-http://127.0.0.1:9428}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./source.yaml:/etc/vector/source.yaml:ro
+      - ./sink-victorialogs.yaml:/etc/vector/sink-victorialogs.yaml:ro
+      - ./sink-loki.yaml:/etc/vector/sink-loki.yaml:ro
+      - ./sink-otlp.yaml:/etc/vector/sink-otlp.yaml:ro
+    mem_limit: 128m

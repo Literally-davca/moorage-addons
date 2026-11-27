@@ -1,0 +1,13 @@
+services:
+  node-exporter:
+    image: prom/node-exporter:v1.9.1
+    command:
+      - --path.rootfs=/host
+    restart: unless-stopped
+    pid: host
+    volumes:
+      - /:/host:ro,rslave
+    ports:
+      # Reachable from this host only; set NODE_EXPORTER_BIND=0.0.0.0 in add-ons/.env to let Prometheus elsewhere scrape it.
+      - "${NODE_EXPORTER_BIND:-127.0.0.1}:${NODE_EXPORTER_PORT:-9100}:9100"
+    mem_limit: 64m

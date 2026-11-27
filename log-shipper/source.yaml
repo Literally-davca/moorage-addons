@@ -1,0 +1,13 @@
+# Container logs of this host. Moorage's own helpers (moorage.role labels) are left out.
+sources:
+  docker:
+    type: docker_logs
+transforms:
+  tidy:
+    type: remap
+    inputs: [docker]
+    source: |
+      if exists(.label."moorage.role") { abort }
+      .stack = .label."com.docker.compose.project"
+      .service = .label."com.docker.compose.service"
+      del(.label)

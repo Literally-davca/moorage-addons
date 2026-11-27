@@ -1,0 +1,11 @@
+sinks:
+  out:
+    type: opentelemetry
+    inputs: [tidy]
+    protocol:
+      type: http
+      uri: "${LOG_ENDPOINT}/v1/logs"
+      encoding:
+        codec: json
+    healthcheck:
+      enabled: false

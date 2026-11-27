@@ -13,6 +13,8 @@ Moorage keeps its core binary small (< 100 MB PSS RAM) and universal. Features a
 | [`prometheus-grafana`](./prometheus-grafana/README.md) | Built-in / Config | `+1–3 MB` | `< 1%` | Prometheus `/metrics` endpoint & Grafana dashboard |
 | [`trivy-scanner`](./trivy-scanner/README.md) | External container | `+150–400 MB` (scan) | Burst on scan | CVE vulnerability scanning for stack images |
 | [`restic-backup`](./restic-backup/README.md) | External container | `+30–120 MB` (job) | Burst on backup | Per-stack volume backups with Restic |
+| [`log-shipper`](./log-shipper/README.md) | External container | `+30–60 MB` | `~1%` | Ship container logs to VictoriaLogs, Loki or OTLP with Vector |
+| [`node-exporter`](./node-exporter/README.md) | External container | `+10–20 MB` | `< 1%` | Host metrics for Prometheus next to prometheus-grafana |
 
 ## Contributing an Add-on
 
